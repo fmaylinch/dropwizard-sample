@@ -1,5 +1,6 @@
 package com.codethen.dropwizard.sample;
 
+import com.codethen.dropwizard.sample.resources.BookResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -25,6 +26,8 @@ public class MyApp extends Application<MyAppConfig> {
 
 	@Override
 	public void run(MyAppConfig config, Environment env) throws Exception {
-		// nothing to do yet
+
+		final BookResource bookResource = new BookResource();
+		env.jersey().register(bookResource);
 	}
 }
