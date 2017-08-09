@@ -7,22 +7,22 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Path("/books")
 @Produces(MediaType.TEXT_HTML)
 public class BookResource {
 
-	private List<Book> books;
+	private Map<Integer, Book> books;
 
 	public BookResource() {
 
-		books = new ArrayList<>();
-		books.add( new Book(1, "Head first Java", "Kathy Sierra, Bert Bates", 720) );
-		books.add( new Book(2, "Refactoring", "Martin Fowler", 464) );
-		books.add( new Book(3, "Head first design patterns", "Eric Freeman, Beth Robson", 694) );
-		books.add( new Book(4, "Clean code", "Robert C. Martin", 288) );
+		books = new HashMap<>();
+		books.put(3,  new Book(3,  "Head first Java", "Kathy Sierra, Bert Bates", 720) );
+		books.put(7,  new Book(7,  "Refactoring", "Martin Fowler", 464) );
+		books.put(9,  new Book(9,  "Head first design patterns", "Eric Freeman, Beth Robson", 694) );
+		books.put(12, new Book(12, "Clean code", "Robert C. Martin", 288) );
 	}
 
 	@GET
@@ -30,7 +30,7 @@ public class BookResource {
 
 		String html = "<h1>Recommended books</h1>";
 		html += "<ul>";
-		for (Book book : books) {
+		for (Book book : books.values()) {
 			html += "<li><a href='/books/" + book.getId() + "'>" + book.getTitle() + "</a></li>";
 		}
 		html += "</ul>";
@@ -42,12 +42,15 @@ public class BookResource {
 	@Path("{id}")
 	public String viewBook(@PathParam("id") int id) {
 
-		Book book = books.get(id - 1);
+		Book book = books.get(id);
 
-		String html = "<h1>" + book.getTitle() + "</h1>";
-		html += "<p>Author: " + book.getAuthor() + "</p>";
-		html += "<p>Pages: " + book.getNumPages() + "</p>";
-
-		return html;
+		if (book != null) {
+			String html = "<h1>" + book.getTitle() + "</h1>";
+			html += "<p>Author: " + book.getAuthor() + "</p>";
+			html += "<p>Pages: " + book.getNumPages() + "</p>";
+			return html;
+		} else {
+			return "Book with id " + id + " not found!";
+		}
 	}
 }
