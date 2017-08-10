@@ -2,6 +2,7 @@ package com.codethen.dropwizard.sample;
 
 import com.codethen.dropwizard.sample.resources.BookResource;
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
@@ -21,7 +22,7 @@ public class MyApp extends Application<MyAppConfig> {
 
 	@Override
 	public void initialize(Bootstrap<MyAppConfig> bootstrap) {
-		// nothing to do yet
+		bootstrap.addBundle(new AssetsBundle("/assets/", "/files/"));
 	}
 
 	@Override

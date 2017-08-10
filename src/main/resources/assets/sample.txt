@@ -1,0 +1,1 @@
+This file is accessible via /files/sample.txt
