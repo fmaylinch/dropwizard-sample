@@ -1,9 +1,7 @@
 package com.codethen.dropwizard.sample.resources;
 
 import com.codethen.dropwizard.sample.model.Book;
-import com.github.mustachejava.DefaultMustacheFactory;
-import com.github.mustachejava.Mustache;
-import com.github.mustachejava.MustacheFactory;
+import com.codethen.dropwizard.sample.util.MustacheUtil;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -11,7 +9,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,11 +30,7 @@ public class BookResource {
 	@GET
 	public String viewBooks() throws IOException {
 
-		MustacheFactory mf = new DefaultMustacheFactory();
-		Mustache mustache = mf.compile("books.html");
-		StringWriter writer = new StringWriter();
-		mustache.execute(writer, books.values()).flush();
-		return writer.toString();
+		return MustacheUtil.processTemplate("books.html", books.values());
 	}
 
 	@GET
@@ -47,13 +40,7 @@ public class BookResource {
 		Book book = books.get(id);
 
 		if (book != null) {
-
-			MustacheFactory mf = new DefaultMustacheFactory();
-			Mustache mustache = mf.compile("book.html");
-			StringWriter writer = new StringWriter();
-			mustache.execute(writer, book).flush();
-			return writer.toString();
-
+			return MustacheUtil.processTemplate("book.html", book);
 		} else {
 			return "Book with id " + id + " not found!";
 		}
