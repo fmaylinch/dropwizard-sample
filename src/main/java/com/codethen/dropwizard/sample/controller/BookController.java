@@ -1,4 +1,4 @@
-package com.codethen.dropwizard.sample.resources;
+package com.codethen.dropwizard.sample.controller;
 
 import com.codethen.dropwizard.sample.model.Book;
 import com.codethen.dropwizard.sample.util.MustacheUtil;
@@ -13,11 +13,11 @@ import java.util.Map;
 
 @Path("/books")
 @Produces(MediaType.TEXT_HTML)
-public class BookResource {
+public class BookController {
 
 	private Map<Integer, Book> books;
 
-	public BookResource() {
+	public BookController() {
 
 		books = new HashMap<>();
 		books.put(3,  new Book(3,  "Head first Java", "Kathy Sierra, Bert Bates", 720) );
