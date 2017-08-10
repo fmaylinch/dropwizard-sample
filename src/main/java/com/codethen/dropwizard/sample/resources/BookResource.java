@@ -8,7 +8,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,14 +27,14 @@ public class BookResource {
 	}
 
 	@GET
-	public String viewBooks() throws IOException {
+	public String viewBooks() {
 
 		return MustacheUtil.processTemplate("books.html", books.values());
 	}
 
 	@GET
 	@Path("{id}")
-	public String viewBook(@PathParam("id") int id) throws IOException {
+	public String viewBook(@PathParam("id") int id) {
 
 		Book book = books.get(id);
 
