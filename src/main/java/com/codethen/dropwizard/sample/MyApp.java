@@ -22,7 +22,7 @@ public class MyApp extends Application<MyAppConfig> {
 
 	@Override
 	public void initialize(Bootstrap<MyAppConfig> bootstrap) {
-		bootstrap.addBundle(new AssetsBundle("/assets/", "/files/"));
+		bootstrap.addBundle(new AssetsBundle("/assets/", "/assets/"));
 	}
 
 	@Override

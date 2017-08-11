@@ -1,0 +1,20 @@
+body {
+    margin: 20px;
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+h1 {
+    color: #5046a0;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+    border-bottom: 2px dashed gray;
+}
