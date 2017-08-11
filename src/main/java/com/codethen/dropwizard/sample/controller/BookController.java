@@ -29,7 +29,7 @@ public class BookController {
 	@GET
 	public String viewBooks() {
 
-		return MustacheUtil.processTemplate("books.html", books.values());
+		return MustacheUtil.processTemplate("templates/books.html", books.values());
 	}
 
 	@GET
@@ -39,7 +39,7 @@ public class BookController {
 		Book book = books.get(id);
 
 		if (book != null) {
-			return MustacheUtil.processTemplate("book.html", book);
+			return MustacheUtil.processTemplate("templates/book.html", book);
 		} else {
 			return "Book with id " + id + " not found!";
 		}
