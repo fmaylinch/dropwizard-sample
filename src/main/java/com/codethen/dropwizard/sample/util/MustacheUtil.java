@@ -7,6 +7,9 @@ import com.github.mustachejava.MustacheFactory;
 import java.io.IOException;
 import java.io.StringWriter;
 
+/**
+ * Utility for processing Mustache templates.
+ */
 public class MustacheUtil {
 
 	/**
@@ -16,7 +19,7 @@ public class MustacheUtil {
 	public static String processTemplate(String filename, Object value) {
 
 		MustacheFactory mf = new DefaultMustacheFactory();
-		Mustache mustache = mf.compile(filename);
+		Mustache mustache = mf.compile("templates/mustache/" + filename);
 		StringWriter writer = new StringWriter();
 
 		try {

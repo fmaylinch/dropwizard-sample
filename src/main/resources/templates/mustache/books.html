@@ -6,11 +6,14 @@
 
 <h1>Recommended books</h1>
 <ul>
-    <!-- {{! Iterating top level collection }} -->
-    {{#.}}
+    {{#books}}
     <li><a href='/books/{{id}}'>{{title}}</a></li>
-    {{/.}}
+    {{/books}}
 </ul>
+
+<div class="footer">
+    Template rendered with <a href="http://mustache.github.io" target="_blank">Mustache</a>
+</div>
 
 </body>
 </html>

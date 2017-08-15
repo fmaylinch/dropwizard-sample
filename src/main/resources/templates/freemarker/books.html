@@ -1,0 +1,19 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<h1>Recommended books</h1>
+<ul>
+    <#list books as book>
+        <li><a href='/books/${book.id}'>${book.title}</a></li>
+    </#list>
+</ul>
+
+<div class="footer">
+    Template rendered with <a href="http://freemarker.org" target="_blank">FreeMarker</a>
+</div>
+
+</body>
+</html>

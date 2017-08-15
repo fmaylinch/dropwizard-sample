@@ -1,7 +1,7 @@
 package com.codethen.dropwizard.sample.controller;
 
 import com.codethen.dropwizard.sample.model.Book;
-import com.codethen.dropwizard.sample.util.MustacheUtil;
+import com.codethen.dropwizard.sample.util.FreeMarkerUtil;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -29,7 +29,10 @@ public class BookController {
 	@GET
 	public String viewBooks() {
 
-		return MustacheUtil.processTemplate("templates/books.html", books.values());
+		final Map<String, Object> values = new HashMap<>();
+		values.put("books", books.values());
+
+		return FreeMarkerUtil.processTemplate("books.html", values);
 	}
 
 	@GET
@@ -39,7 +42,7 @@ public class BookController {
 		Book book = books.get(id);
 
 		if (book != null) {
-			return MustacheUtil.processTemplate("templates/book.html", book);
+			return FreeMarkerUtil.processTemplate("book.html", book);
 		} else {
 			return "Book with id " + id + " not found!";
 		}
