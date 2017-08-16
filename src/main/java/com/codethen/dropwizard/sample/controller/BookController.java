@@ -32,7 +32,7 @@ public class BookController {
 		final Map<String, Object> values = new HashMap<>();
 		values.put("books", books.values());
 
-		return FreeMarkerUtil.processTemplate("books.html", values);
+		return FreeMarkerUtil.processTemplate("books", values);
 	}
 
 	@GET
@@ -42,7 +42,7 @@ public class BookController {
 		Book book = books.get(id);
 
 		if (book != null) {
-			return FreeMarkerUtil.processTemplate("book.html", book);
+			return FreeMarkerUtil.processTemplate("book", book);
 		} else {
 			return "Book with id " + id + " not found!";
 		}

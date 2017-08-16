@@ -21,7 +21,7 @@ public class FreeMarkerUtil {
 
 		try {
 			final StringWriter writer = new StringWriter();
-			final Template template = cfg.getTemplate(filename);
+			final Template template = cfg.getTemplate(filename + ".ftl");
 			template.process(value, writer);
 			return writer.toString();
 		} catch (Exception e) {
@@ -36,7 +36,7 @@ public class FreeMarkerUtil {
 
 		// Read templates from resources folder -- https://stackoverflow.com/a/31117170/1121497
 		cfg.setClassForTemplateLoading(FreeMarkerUtil.class, "/templates/freemarker/");
-		
+
 		cfg.setDefaultEncoding("UTF-8");
 		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 		cfg.setLogTemplateExceptions(false);
