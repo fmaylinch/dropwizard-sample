@@ -19,7 +19,7 @@ public class MustacheUtil {
 	public static String processTemplate(String filename, Object value) {
 
 		MustacheFactory mf = new DefaultMustacheFactory();
-		Mustache mustache = mf.compile("templates/mustache/" + filename + ".html");
+		Mustache mustache = mf.compile("templates/mustache/" + filename + ".mustache");
 		StringWriter writer = new StringWriter();
 
 		try {
