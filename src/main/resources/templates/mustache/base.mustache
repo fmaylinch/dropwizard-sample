@@ -1,0 +1,21 @@
+
+{{!
+    If your using IntelliJ IDEA M;ustache plugin you may see errors
+    because we're using template inheritance, which is supported
+    in the Java Mustache version but not in the original Mustache.
+}}
+
+<html>
+<head>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+{{$content}}Replace this content in specific templates{{/content}}
+
+<div class="footer">
+    Template rendered with <a href="http://mustache.github.io" target="_blank">Mustache</a>
+</div>
+
+</body>
+</html>

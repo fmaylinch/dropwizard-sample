@@ -1,22 +1,18 @@
-<html>
-<head>
-    <link rel="stylesheet" href="/assets/css/style.css">
-</head>
-<body>
+
+{{<base}}
+
+{{$content}}
 
 <h1>Recommended books</h1>
 <ul>
     {{#books}}
-    <li><a href='/books/{{id}}'>{{title}}</a></li>
+        <li><a href='/books/{{id}}'>{{title}}</a></li>
     {{/books}}
     {{^books}}
-    <li>No books to show!</li>
+        <li>No books to show!</li>
     {{/books}}
 </ul>
 
-<div class="footer">
-    Template rendered with <a href="http://mustache.github.io" target="_blank">Mustache</a>
-</div>
+{{/content}}
 
-</body>
-</html>
+{{/base}}
