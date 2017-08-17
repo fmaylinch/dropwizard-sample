@@ -1,11 +1,14 @@
-
 <#include "base.ftl">
 
 <#macro main_content>
 
-<h1>${title}</h1>
-<p>Author: ${author}</p>
-<p>Pages: ${numPages}</p>
+<#if book??>
+    <h1>${book.title}</h1>
+    <p>Author: ${book.author}</p>
+    <p>Pages: ${book.numPages}</p>
+<#else>
+    <p>Book not found!</p>
+</#if>
 
 </#macro>
 

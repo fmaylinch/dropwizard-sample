@@ -39,12 +39,11 @@ public class BookController {
 	@Path("{id}")
 	public String viewBook(@PathParam("id") int id) {
 
-		Book book = books.get(id);
+		final Book book = books.get(id);
 
-		if (book != null) {
-			return FreeMarkerUtil.processTemplate("book", book);
-		} else {
-			return "Book with id " + id + " not found!";
-		}
+		final Map<String, Object> values = new HashMap<>();
+		values.put("book", book);
+
+		return FreeMarkerUtil.processTemplate("book", values);
 	}
 }
