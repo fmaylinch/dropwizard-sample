@@ -1,0 +1,15 @@
+
+{{#partial "content"}}
+
+    {{#book}}
+        <h1>{{title}}</h1>
+        <p>Author: {{author}}</p>
+        <p>Pages: {{numPages}}</p>
+    {{/book}}
+    {{^book}}
+        <p>Book not found!</p>
+    {{/book}}
+
+{{/partial}}
+
+{{> base}}

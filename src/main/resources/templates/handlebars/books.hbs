@@ -1,0 +1,17 @@
+
+{{#partial "content"}}
+
+    <h1>Recommended books</h1>
+    {{#if books}}
+    <ul>
+        {{#books}}
+            <li><a href='/books/{{id}}'>{{title}}</a></li>
+        {{/books}}
+    </ul>
+    {{else}}
+        <div>No books to show!</div>
+    {{/if}}
+
+{{/partial}}
+
+{{> base}}

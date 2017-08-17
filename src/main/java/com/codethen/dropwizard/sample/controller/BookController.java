@@ -1,7 +1,7 @@
 package com.codethen.dropwizard.sample.controller;
 
 import com.codethen.dropwizard.sample.model.Book;
-import com.codethen.dropwizard.sample.util.FreeMarkerUtil;
+import com.codethen.dropwizard.sample.util.HandlebarsUtil;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -32,7 +32,7 @@ public class BookController {
 		final Map<String, Object> values = new HashMap<>();
 		values.put("books", books.values());
 
-		return FreeMarkerUtil.processTemplate("books", values);
+		return HandlebarsUtil.processTemplate("books", values);
 	}
 
 	@GET
@@ -44,6 +44,6 @@ public class BookController {
 		final Map<String, Object> values = new HashMap<>();
 		values.put("book", book);
 
-		return FreeMarkerUtil.processTemplate("book", values);
+		return HandlebarsUtil.processTemplate("book", values);
 	}
 }
