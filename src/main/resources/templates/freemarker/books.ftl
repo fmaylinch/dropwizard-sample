@@ -1,8 +1,7 @@
-<html>
-<head>
-    <link rel="stylesheet" href="/assets/css/style.css">
-</head>
-<body>
+
+<#include "base.ftl">
+
+<#macro main_content>
 
 <h1>Recommended books</h1>
 <#list books>
@@ -15,9 +14,6 @@
 <div>No books to show!</div>
 </#list>
 
-<div class="footer">
-    Template rendered with <a href="http://freemarker.org" target="_blank">FreeMarker</a>
-</div>
+</#macro>
 
-</body>
-</html>
+<@whole_page/>
