@@ -5,6 +5,10 @@ body {
     color: #333;
 }
 
+input, button {
+    font-size: 1em;
+}
+
 h1 {
     color: #5046a0;
 }
