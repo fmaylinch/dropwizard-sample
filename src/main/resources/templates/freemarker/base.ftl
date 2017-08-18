@@ -21,6 +21,9 @@
     Template rendered with <a href="http://freemarker.org" target="_blank">FreeMarker</a>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="/assets/js/app.js"></script>
+
 </body>
 </html>
 </#macro>

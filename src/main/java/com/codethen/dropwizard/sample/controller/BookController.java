@@ -3,13 +3,12 @@ package com.codethen.dropwizard.sample.controller;
 import com.codethen.dropwizard.sample.model.Book;
 import com.codethen.dropwizard.sample.util.HandlebarsUtil;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Path("/books")
 @Produces(MediaType.TEXT_HTML)
@@ -27,10 +26,19 @@ public class BookController {
 	}
 
 	@GET
-	public String viewBooks() {
+	public String viewBooks(@QueryParam("search") String search) {
+
+		final Collection<Book> booksToDisplay;
+		if (search != null) {
+			booksToDisplay = books.values().stream()
+				.filter(book -> book.getTitle().toLowerCase().contains(search.toLowerCase()))
+				.collect(Collectors.toList());
+		} else {
+			booksToDisplay = books.values();
+		}
 
 		final Map<String, Object> values = new HashMap<>();
-		values.put("books", books.values());
+		values.put("books", booksToDisplay);
 
 		return HandlebarsUtil.processTemplate("books", values);
 	}

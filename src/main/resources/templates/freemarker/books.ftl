@@ -4,6 +4,11 @@
 <#macro main_content>
 
 <h1>Recommended books</h1>
+
+<form class="search-box">
+    <input placeholder="search books"> <button>Search</button>
+</form>
+
 <#list books>
 <ul>
     <#items as book>
