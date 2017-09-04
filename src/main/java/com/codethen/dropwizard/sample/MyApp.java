@@ -1,5 +1,6 @@
 package com.codethen.dropwizard.sample;
 
+import com.codethen.dropwizard.sample.controller.BookApi;
 import com.codethen.dropwizard.sample.controller.BookController;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
@@ -28,7 +29,7 @@ public class MyApp extends Application<MyAppConfig> {
 	@Override
 	public void run(MyAppConfig config, Environment env) throws Exception {
 
-		final BookController bookController = new BookController();
-		env.jersey().register(bookController);
+		env.jersey().register(new BookController());
+		env.jersey().register(new BookApi());
 	}
 }
