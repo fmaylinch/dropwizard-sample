@@ -2,6 +2,7 @@ package com.codethen.dropwizard.sample;
 
 import com.codethen.dropwizard.sample.controller.BookApi;
 import com.codethen.dropwizard.sample.controller.BookController;
+import com.codethen.dropwizard.sample.service.BookService;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
@@ -29,7 +30,9 @@ public class MyApp extends Application<MyAppConfig> {
 	@Override
 	public void run(MyAppConfig config, Environment env) throws Exception {
 
-		env.jersey().register(new BookController());
-		env.jersey().register(new BookApi());
+		BookService bookService = new BookService();
+
+		env.jersey().register(new BookController(bookService));
+		env.jersey().register(new BookApi(bookService));
 	}
 }
