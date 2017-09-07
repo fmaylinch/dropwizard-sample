@@ -1,15 +1,36 @@
 
 const apiRootUrl = '/dw/api';
 
-let booksPromise = loadBooks();
+setupForm();
 
-booksPromise.then(books => {
-	displayBooks(books);
-});
+loadBooks().then(displayBooks);
 
-// Equivalent to the code above
-// loadBooks().then(displayBooks);
+// Equivalent to: loadBooks().then(displayBooks);
+//
+// let booksPromise = loadBooks();
+// booksPromise.then(books => {
+//   displayBooks(books);
+// });
 
+
+function setupForm() {
+
+	$('form').submit(event => {
+		console.log("Form submitted");
+		event.preventDefault();
+
+		const book = {
+			title: $('#title').val(),
+			author: $('#author').val(),
+			numPages: parseInt($('#pages').val())
+		};
+
+		axios
+			.post(apiRootUrl + '/books', book)
+			.then(book => console.log(book))
+			.catch(error => console.error("Error adding book!", error));
+	});
+}
 
 
 /** Gets books from API and returns a promise of books */
@@ -39,27 +60,4 @@ function displayBooks(books) {
 
 	const resultDiv = document.getElementById("result");
 	resultDiv.innerHTML = html;
-}
-
-// We're not using this function.
-// It's ok to do it this way,
-// although the way we use above is a bit more elegant.
-
-/** Gets books from API and displays them */
-function loadBooksAndDisplayThem() {
-
-	let url = apiRootUrl + '/books';
-
-	fetch(url)
-		.then(response => response.json())
-		.then(books => {
-			console.log("AJAX request finished correctly :)");
-			const result = `Found ${books.length}`;
-			console.log(result);
-			displayBooks(books);
-		})
-		.catch(error => {
-			console.log("AJAX request finished with an error :(");
-			console.error("ERROR:", error);
-		});
 }

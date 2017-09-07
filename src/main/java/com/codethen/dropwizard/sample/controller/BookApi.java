@@ -29,4 +29,12 @@ public class BookApi {
 
 		return bookService.getById(id);
 	}
+
+	@POST
+	public Book addBook(Book book) {
+
+		System.out.println("Received book: " + book);
+
+		return book;
+	}
 }
