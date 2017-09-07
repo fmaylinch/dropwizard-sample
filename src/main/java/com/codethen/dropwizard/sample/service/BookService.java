@@ -11,13 +11,17 @@ public class BookService {
 
 	private Map<Integer, Book> books;
 
+	private int nextId;
+
 	public BookService() {
 
 		books = new HashMap<>();
-		books.put(3,  new Book(3,  "Head first Java", "Kathy Sierra, Bert Bates", 720) );
-		books.put(7,  new Book(7,  "Refactoring", "Martin Fowler", 464) );
-		books.put(9,  new Book(9,  "Head first design patterns", "Eric Freeman, Beth Robson", 694) );
-		books.put(12, new Book(12, "Clean code", "Robert C. Martin", 288) );
+		books.put(1,  new Book(1,  "Head first Java", "Kathy Sierra, Bert Bates", 720) );
+		books.put(3,  new Book(3,  "Refactoring", "Martin Fowler", 464) );
+		books.put(4,  new Book(4,  "Head first design patterns", "Eric Freeman, Beth Robson", 694) );
+		books.put(5,  new Book(5, "Clean code", "Robert C. Martin", 288) );
+
+		nextId = 6; // This would be managed by the database
 	}
 
 	public Book getById(int id) {
@@ -38,5 +42,16 @@ public class BookService {
 		}
 
 		return result;
+	}
+
+	public Book addBook(Book book) {
+
+		book.setId(nextId);
+
+		books.put(nextId, book);
+
+		nextId++;
+
+		return book;
 	}
 }

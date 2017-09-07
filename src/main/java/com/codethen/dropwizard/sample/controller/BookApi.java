@@ -35,6 +35,6 @@ public class BookApi {
 
 		System.out.println("Received book: " + book);
 
-		return book;
+		return bookService.addBook(book);
 	}
 }
