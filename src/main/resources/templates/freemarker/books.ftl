@@ -19,6 +19,8 @@
 <div>No books to show!</div>
 </#list>
 
+<script src="/js/controller/book-search.js"></script>
+
 </#macro>
 
 <@whole_page/>
