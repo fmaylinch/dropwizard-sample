@@ -24,7 +24,12 @@ public class MyApp extends Application<MyAppConfig> {
 
 	@Override
 	public void initialize(Bootstrap<MyAppConfig> bootstrap) {
-		bootstrap.addBundle(new AssetsBundle("/assets/", "/assets/"));
+
+		// Configures Dropwizard to serve /assets folder form url path /
+		// We also configure default index file as "books.html", although
+		//   this is usually "index.html".
+		//
+		bootstrap.addBundle(new AssetsBundle("/assets/", "/", "books.html"));
 	}
 
 	@Override

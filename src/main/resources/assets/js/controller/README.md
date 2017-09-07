@@ -1,0 +1,1 @@
+These js files are used in the templates loaded from BookController.
