@@ -21,8 +21,9 @@ If you change anything, restart the server and refresh your browser page.
 **Note about using this project as a starting point**
 
 If you cloned the project and you want to make changes, you may want to
-remove the `origin` by executing `git remote rm origin`. After doing this,
-you can upload the repository to GitHub as usual.
+remove the `origin` remote by executing `git remote rm origin`.
+After doing this, the repository you cloned won't be linked to my account
+so you can upload the repository to your GitHub account as usual.
 
-Another option [forking](https://help.github.com/articles/fork-a-repo/) the project before cloning it.
+Another option is to [fork](https://help.github.com/articles/fork-a-repo/) the project before cloning it.
 That way you will have a copy of the project in your GitHub account. 
