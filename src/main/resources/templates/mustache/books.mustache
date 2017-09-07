@@ -11,12 +11,14 @@
 
 <ul>
     {{#books}}
-        <li><a href='/books/{{id}}'>{{title}}</a></li>
+        <li><a href='books/{{id}}'>{{title}}</a></li>
     {{/books}}
     {{^books}}
         <li>No books to show!</li>
     {{/books}}
 </ul>
+
+<script src="/js/controller/book-search.js"></script>
 
 {{/content}}
 

@@ -12,12 +12,14 @@
 <#list books>
 <ul>
     <#items as book>
-        <li><a href='/books/${book.id}'>${book.title}</a></li>
+        <li><a href='books/${book.id}'>${book.title}</a></li>
     </#items>
 </ul>
 <#else>
 <div>No books to show!</div>
 </#list>
+
+<script src="/js/controller/book-search.js"></script>
 
 </#macro>
 

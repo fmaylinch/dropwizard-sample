@@ -7,7 +7,7 @@ To try it from IntelliJ IDEA:
 1. Run the `MyApp` class (it will display a message in the console).
 1. Go to _Edit Configurations..._
 (drop-down menu you see at the top-right)
-and in the `MyApp` configuration write `server`
+and in the `MyApp` configuration write `server src/main/resources/my-app.yaml`
 in the `Program arguments` input box. Save with _OK_.
 1. Run the `MyApp` configuration (from the top-right green play button).
 The server will start in a couple of seconds
