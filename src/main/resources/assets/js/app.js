@@ -66,12 +66,12 @@ function setupSearchButtonJQuery() {
 function performSearchVanilla() {
 	const input = document.querySelector(".search-box input");
 	const searchTerm = input.value;
-	location.href = '/books?search=' + searchTerm;
+	location.href = 'books?search=' + searchTerm;
 }
 
 function performSearchJQuery() {
 	const input = $(".search-box input");
 	const searchTerm = input.val();
-	location.href = '/books?search=' + searchTerm;
+	location.href = 'books?search=' + searchTerm;
 }
 

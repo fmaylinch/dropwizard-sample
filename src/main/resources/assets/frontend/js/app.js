@@ -1,4 +1,6 @@
 
+const apiRootUrl = '/dw/api';
+
 let booksPromise = loadBooks();
 
 booksPromise.then(books => {
@@ -13,7 +15,7 @@ booksPromise.then(books => {
 /** Gets books from API and returns a promise of books */
 function loadBooks() {
 
-	let url = '/api/books';
+	let url = apiRootUrl + '/books';
 
 	// We return the promise that fetch() gives us
 	return fetch(url)
@@ -46,7 +48,7 @@ function displayBooks(books) {
 /** Gets books from API and displays them */
 function loadBooksAndDisplayThem() {
 
-	let url = '/api/books';
+	let url = apiRootUrl + '/books';
 
 	fetch(url)
 		.then(response => response.json())

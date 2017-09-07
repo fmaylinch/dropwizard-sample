@@ -12,7 +12,7 @@
 <#list books>
 <ul>
     <#items as book>
-        <li><a href='/books/${book.id}'>${book.title}</a></li>
+        <li><a href='books/${book.id}'>${book.title}</a></li>
     </#items>
 </ul>
 <#else>
