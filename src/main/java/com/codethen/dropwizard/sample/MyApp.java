@@ -30,6 +30,10 @@ public class MyApp extends Application<MyAppConfig> {
 		//   this is usually "index.html".
 		//
 		bootstrap.addBundle(new AssetsBundle("/assets/", "/", "books.html"));
+
+		// TODO: We could change default Dropwizard Date serialization
+		// ObjectMapper mapper = bootstrap.getObjectMapper();
+		// mapper.registerModule(new MyModule());
 	}
 
 	@Override
