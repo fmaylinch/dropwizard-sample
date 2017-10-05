@@ -7,6 +7,11 @@ import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.eclipse.jetty.servlets.CrossOriginFilter;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
+import java.util.EnumSet;
 
 /**
  * To start server, run with args: server
@@ -43,5 +48,20 @@ public class MyApp extends Application<MyAppConfig> {
 
 		env.jersey().register(new BookController(bookService));
 		env.jersey().register(new BookApi(bookService));
+
+		setupCors(env);
+	}
+
+	/**
+	 * Enable access from any origin
+	 */
+	private void setupCors(Environment env)
+	{
+		final FilterRegistration.Dynamic cors = env.servlets().addFilter("CORS", CrossOriginFilter.class);
+		cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
+		cors.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "*");
+		cors.setInitParameter(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "*");
+		cors.setInitParameter(CrossOriginFilter.ALLOWED_HEADERS_PARAM, "*");
+		cors.setInitParameter(CrossOriginFilter.ALLOW_CREDENTIALS_PARAM, "true");
 	}
 }
