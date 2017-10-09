@@ -3,19 +3,26 @@ package com.codethen.dropwizard.sample.service;
 import com.codethen.dropwizard.sample.model.Book;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class BookService {
 
+	private SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
 	public BookService() {
 
 	}
 
+	/** Returns a book by id, or null if not found. */
 	public Book getById(int id) {
 
-		return null; // TODO books.get(id);
+		List<Book> books = getBooksFromDB("select * from books where id = " + id);
+
+		return books.isEmpty() ? null : books.get(0);
+		// return if (books.isEmpty()) null else books.get(0)
 	}
 
 	public Collection<Book> findByTitle(String search) {
@@ -31,6 +38,10 @@ public class BookService {
 		return result;
 	}
 
+	/**
+	 * From a SQL query, returns a list of books.
+	 * If there are no result, returns an empty list.
+	 */
 	private List<Book> getBooksFromDB(String sql) {
 
 		List<Book> result = new ArrayList<>();
@@ -39,7 +50,6 @@ public class BookService {
 		String schema = "books";
 		String user = "root";
 		String pwd = "maysicuel";
-
 
 		try {
 
@@ -77,13 +87,45 @@ public class BookService {
 		return result;
 	}
 
+	private void insertBook(Book book) {
+
+		String host = "localhost";
+		String schema = "books";
+		String user = "root";
+		String pwd = "maysicuel";
+
+		try {
+
+			// code that may fail
+			Connection conn = DriverManager.getConnection(
+				"jdbc:mysql://" + host + "/" + schema + "?user=" + user + "&password=" + pwd);
+
+			String dateStr =  book.getReleaseDate() != null ?
+				"'" + sqlDateFormat.format(book.getReleaseDate()) + "'"
+				: null;
+
+			Statement stmt = conn.createStatement();
+			String sql = "insert into books (title, author, num_pages, release_date) values ('"
+				+ book.getTitle() + "', '" + book.getAuthor() + "', "
+				+ book.getNumPages() + ", " + dateStr + ")";
+
+			System.out.println(sql);
+			stmt.executeUpdate(sql);
+
+			stmt.close();
+			conn.close();
+
+		} catch(SQLException e) {
+
+			// what to do in case of error???
+			throw new RuntimeException("there was a problem with the database", e);
+		}
+	}
+
 	public Book addBook(Book book) {
 
-		// TODO
+		insertBook(book);
 
-		//book.setId(nextId);
-		// books.put(nextId, book);
-		//nextId++;
 		return book;
 	}
 }
