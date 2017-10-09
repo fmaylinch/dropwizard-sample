@@ -3,9 +3,9 @@ package com.codethen.dropwizard.sample.service;
 import com.codethen.dropwizard.sample.model.Book;
 
 import java.sql.*;
-import java.sql.Date;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class BookService {
 
@@ -22,20 +22,16 @@ public class BookService {
 
 		final Collection<Book> result;
 
-		List<Book> books = getBooksFromDB();
-
 		if (search != null) {
-			result = books.stream()
-				.filter(book -> book.getTitle().toLowerCase().contains(search.toLowerCase()))
-				.collect(Collectors.toList());
+			result = getBooksFromDB("select * from books where title like '%" + search + "%'");
 		} else {
-			result = books;
+			result = getBooksFromDB("select * from books");
 		}
 
 		return result;
 	}
 
-	private List<Book> getBooksFromDB() {
+	private List<Book> getBooksFromDB(String sql) {
 
 		List<Book> result = new ArrayList<>();
 
@@ -52,7 +48,7 @@ public class BookService {
 				"jdbc:mysql://" + host + "/" + schema + "?user=" + user + "&password=" + pwd);
 
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from books");
+			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
 
