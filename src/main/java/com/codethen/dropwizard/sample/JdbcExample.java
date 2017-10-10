@@ -9,7 +9,7 @@ public class JdbcExample {
 		String host = "localhost";
 		String schema = "books";
 		String user = "root";
-		String pwd = "maysicuel";
+		String pwd = "YOUR PASSWORD HERE"; // TODO
 
 		Connection conn = DriverManager.getConnection(
 			"jdbc:mysql://" + host + "/" + schema + "?user=" + user + "&password=" + pwd);
