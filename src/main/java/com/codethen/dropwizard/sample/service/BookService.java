@@ -1,6 +1,7 @@
 package com.codethen.dropwizard.sample.service;
 
 import com.codethen.dropwizard.sample.model.Book;
+import com.codethen.dropwizard.sample.util.DbUtil;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -10,10 +11,10 @@ import java.util.List;
 
 public class BookService {
 
-	private SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	private SimpleDateFormat sqlDateFormat;
 
 	public BookService() {
-
+		sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	}
 
 	/** Returns a book by id, or null if not found. */
@@ -38,6 +39,17 @@ public class BookService {
 		return result;
 	}
 
+	public Book addBook(Book book) {
+
+		insertBook(book);
+
+		return book;
+	}
+
+
+
+	// --- Database access ---
+
 	/**
 	 * From a SQL query, returns a list of books.
 	 * If there are no result, returns an empty list.
@@ -46,17 +58,9 @@ public class BookService {
 
 		List<Book> result = new ArrayList<>();
 
-		String host = "localhost";
-		String schema = "books";
-		String user = "root";
-		String pwd = "maysicuel";
-
 		try {
 
-			// code that may fail
-			Connection conn = DriverManager.getConnection(
-				"jdbc:mysql://" + host + "/" + schema + "?user=" + user + "&password=" + pwd);
-
+			Connection conn = DbUtil.getConnection();
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 
@@ -78,9 +82,8 @@ public class BookService {
 			stmt.close();
 			conn.close();
 
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 
-			// what to do in case of error???
 			throw new RuntimeException("there was a problem with the database", e);
 		}
 
@@ -89,21 +92,14 @@ public class BookService {
 
 	private void insertBook(Book book) {
 
-		String host = "localhost";
-		String schema = "books";
-		String user = "root";
-		String pwd = "maysicuel";
-
 		try {
 
-			// code that may fail
-			Connection conn = DriverManager.getConnection(
-				"jdbc:mysql://" + host + "/" + schema + "?user=" + user + "&password=" + pwd);
-
+			// Handle null date
 			String dateStr =  book.getReleaseDate() != null ?
 				"'" + sqlDateFormat.format(book.getReleaseDate()) + "'"
 				: null;
 
+			Connection conn = DbUtil.getConnection();
 			Statement stmt = conn.createStatement();
 			String sql = "insert into books (title, author, num_pages, release_date) values ('"
 				+ book.getTitle() + "', '" + book.getAuthor() + "', "
@@ -115,17 +111,9 @@ public class BookService {
 			stmt.close();
 			conn.close();
 
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 
-			// what to do in case of error???
 			throw new RuntimeException("there was a problem with the database", e);
 		}
-	}
-
-	public Book addBook(Book book) {
-
-		insertBook(book);
-
-		return book;
 	}
 }
