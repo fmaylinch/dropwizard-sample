@@ -6,6 +6,7 @@ import com.codethen.dropwizard.sample.util.DbUtil;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * Connects to the database using JDBC
@@ -15,7 +16,17 @@ public class BookDaoJdbc implements BookDao {
 	@Override
 	public Book getById(int id) {
 
-		List<Book> books = getBooksFromDB("select * from books where id = " + id);
+		Function<Connection, PreparedStatement> function = conn -> {
+			try {
+				PreparedStatement ps = conn.prepareStatement("select * from books where id = ?");
+				ps.setInt(1, id);
+				return ps;
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+		};
+
+		List<Book> books = getBooksFromDB(function);
 
 		if (books.size() > 0) {
 			return books.get(0);
@@ -27,13 +38,31 @@ public class BookDaoJdbc implements BookDao {
 	@Override
 	public List<Book> getAll() {
 
-		return getBooksFromDB("select * from books");
+		Function<Connection, PreparedStatement> function = conn -> {
+			try {
+				return conn.prepareStatement("select * from books");
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+		};
+
+		return getBooksFromDB(function);
 	}
 
 	@Override
 	public List<Book> findByTitle(String titlePart) {
 
-		return getBooksFromDB("select * from books where title like '%" + titlePart + "%'");
+		Function<Connection, PreparedStatement> function = conn -> {
+			try {
+				PreparedStatement ps = conn.prepareStatement("select * from books where title like ?");
+				ps.setString(1, "%" + titlePart + "%");
+				return ps;
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+		};
+
+		return getBooksFromDB(function);
 	}
 
 	@Override
@@ -57,15 +86,18 @@ public class BookDaoJdbc implements BookDao {
 	 * From a SQL query, returns a list of books.
 	 * If there are no result, returns an empty list.
 	 */
-	private List<Book> getBooksFromDB(String sql) {
+	private List<Book> getBooksFromDB(Function<Connection, PreparedStatement> function) {
 
 		List<Book> result = new ArrayList<>();
 
 		try {
 
 			Connection conn = DbUtil.getConnection();
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+
+			// Execute the function that was passed by parameter
+			PreparedStatement ps = function.apply(conn);
+
+			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
 
@@ -82,7 +114,7 @@ public class BookDaoJdbc implements BookDao {
 			}
 
 			rs.close();
-			stmt.close();
+			ps.close();
 			conn.close();
 
 		} catch (SQLException e) {
