@@ -4,7 +4,9 @@ import com.codethen.dropwizard.sample.controller.BookApi;
 import com.codethen.dropwizard.sample.controller.BookController;
 import com.codethen.dropwizard.sample.database.BookDao;
 import com.codethen.dropwizard.sample.database.BookDaoJdbc;
+import com.codethen.dropwizard.sample.database.BookDaoSpringJdbc;
 import com.codethen.dropwizard.sample.service.BookService;
+import com.codethen.dropwizard.sample.util.DbUtil;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
@@ -13,6 +15,7 @@ import org.eclipse.jetty.servlets.CrossOriginFilter;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
+import javax.sql.DataSource;
 import java.util.EnumSet;
 
 /**
@@ -46,7 +49,8 @@ public class MyApp extends Application<MyAppConfig> {
 	@Override
 	public void run(MyAppConfig config, Environment env) throws Exception {
 
-		BookDao bookDao = new BookDaoJdbc();
+		DataSource ds = DbUtil.getDataSource();
+		BookDao bookDao = new BookDaoSpringJdbc(ds); // choose implementation
 		BookService bookService = new BookService(bookDao);
 
 		env.jersey().register(new BookController(bookService));
