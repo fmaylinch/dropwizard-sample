@@ -3,6 +3,8 @@ package com.codethen.dropwizard.sample.util;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 import javax.sql.DataSource;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,23 +15,29 @@ import java.util.Properties;
  */
 public class DbUtil {
 
-	public static Connection getConnection() throws SQLException
-	{
-		String host = "localhost";
-		String schema = "books";
-		String user = "root";
-		String pwd = "maysicuel";
+	/** Opens a {@link Connection} using the configuration in jdbc.properties */
+	public static Connection getConnection() throws SQLException {
+
+		Properties props = loadJdbcProperties("jdbc.properties");
+
+		String host = props.getProperty("host");
+		String schema = props.getProperty("schema");
+		String user = props.getProperty("user");
+		String pwd = props.getProperty("password");
 
 		return DriverManager.getConnection(
 			"jdbc:mysql://" + host + "/" + schema + "?user=" + user + "&password=" + pwd);
 	}
 
+	/** Creates a {@link DataSource} using the configuration in jdbc.properties */
 	public static DataSource getDataSource() throws SQLException {
 
-		String host = "localhost";
-		String schema = "books";
-		String user = "root";
-		String pwd = "maysicuel";
+		Properties props = loadJdbcProperties("jdbc.properties");
+
+		String host = props.getProperty("host");
+		String schema = props.getProperty("schema");
+		String user = props.getProperty("user");
+		String pwd = props.getProperty("password");
 
 		MysqlDataSource dataSource = new MysqlDataSource();
 		dataSource.setURL("jdbc:mysql://" + host + "/" + schema);
@@ -37,5 +45,17 @@ public class DbUtil {
 		dataSource.setPassword(pwd);
 
 		return dataSource;
+	}
+
+	/** Loads JDBC properties from a file in the specified file */
+	private static Properties loadJdbcProperties(String fileName) {
+
+		try {
+			Properties props = new Properties();
+			props.load(new FileReader(fileName));
+			return props;
+		} catch (IOException e) {
+			throw new RuntimeException("JDBC properties could no be loaded from " + fileName, e);
+		}
 	}
 }
