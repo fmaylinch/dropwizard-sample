@@ -2,6 +2,8 @@ package com.codethen.dropwizard.sample;
 
 import com.codethen.dropwizard.sample.controller.BookApi;
 import com.codethen.dropwizard.sample.controller.BookController;
+import com.codethen.dropwizard.sample.database.BookDao;
+import com.codethen.dropwizard.sample.database.BookDaoJdbc;
 import com.codethen.dropwizard.sample.service.BookService;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
@@ -44,7 +46,8 @@ public class MyApp extends Application<MyAppConfig> {
 	@Override
 	public void run(MyAppConfig config, Environment env) throws Exception {
 
-		BookService bookService = new BookService();
+		BookDao bookDao = new BookDaoJdbc();
+		BookService bookService = new BookService(bookDao);
 
 		env.jersey().register(new BookController(bookService));
 		env.jersey().register(new BookApi(bookService));

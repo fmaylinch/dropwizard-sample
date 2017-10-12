@@ -14,7 +14,7 @@ public class DbUtil {
 		String host = "localhost";
 		String schema = "books";
 		String user = "root";
-		String pwd = "YOUR PASSWORD HERE"; // TODO
+		String pwd = "maysicuel";
 
 		return DriverManager.getConnection(
 			"jdbc:mysql://" + host + "/" + schema + "?user=" + user + "&password=" + pwd);

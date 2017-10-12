@@ -20,7 +20,11 @@ public class BookApi {
 	@GET
 	public Collection<Book> viewBooks(@QueryParam("search") String search) {
 
-		return bookService.findByTitle(search);
+		if (search != null) {
+			return bookService.findByTitle(search);
+		} else {
+			return bookService.getAll();
+		}
 	}
 
 	@GET
@@ -35,6 +39,6 @@ public class BookApi {
 
 		System.out.println("Received book: " + book);
 
-		return bookService.addBook(book);
+		return bookService.add(book);
 	}
 }
