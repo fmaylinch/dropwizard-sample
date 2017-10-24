@@ -33,14 +33,23 @@ public class BookDaoSpringJdbc implements BookDao {
 				String author = rs.getString("author");
 				int numPages = rs.getInt("num_pages");
 				Date releaseDate = rs.getDate("release_date");
+				boolean available = rs.getBoolean("available");
 
-				return new Book(id, title, author, numPages, releaseDate);
+				Book book = new Book();
+				book.setId(id);
+				book.setTitle(title);
+				book.setAuthor(author);
+				book.setNumPages(numPages);
+				book.setReleaseDate(releaseDate);
+				book.setAvailable(available);
+
+				return book;
 			}
 		};
 	}
 
 	@Override
-	public Book getById(int id) {
+	public Book getById(Integer id) {
 
 		Object[] args = { id };
 		return jdbcTemplate.queryForObject("select * from books where id = ?", args, mapper);
@@ -52,7 +61,7 @@ public class BookDaoSpringJdbc implements BookDao {
 		return jdbcTemplate.query("select * from books", mapper);
 	}
 
-	@Override
+	//@Override
 	public List<Book> findByTitle(String titlePart) {
 
 		Object[] args = { "%" + titlePart + "%" };
@@ -81,7 +90,7 @@ public class BookDaoSpringJdbc implements BookDao {
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(Integer id) {
 
 		Object[] args = { id };
 		jdbcTemplate.update("delete from books where id = ?", args);

@@ -14,7 +14,7 @@ import java.util.function.Function;
 public class BookDaoJdbc implements BookDao {
 
 	@Override
-	public Book getById(int id) {
+	public Book getById(Integer id) {
 
 		Function<Connection, PreparedStatement> function = conn -> {
 			try {
@@ -72,11 +72,18 @@ public class BookDaoJdbc implements BookDao {
 
 	@Override
 	public Book update(Book book) {
+
+		/* TODO: tx
+		conn.setAutoCommit(false);
+		conn.commit();
+		conn.rollback();
+		*/
+
 		return null;
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(Integer id) {
 
 	}
 
