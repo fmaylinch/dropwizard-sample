@@ -116,7 +116,12 @@ public class BookDaoJdbc implements BookDao {
 				Date releaseDate = rs.getDate("release_date");
 
 				// Add book to list
-				Book book = new Book(id, title, author, numPages, releaseDate);
+				Book book = new Book();
+				book.setId(id);
+				book.setTitle(title);
+				book.setAuthor(author);
+				book.setNumPages(numPages);
+				book.setReleaseDate(releaseDate);
 				result.add(book);
 			}
 
