@@ -1,0 +1,1 @@
+web: java -jar target/dropwizard-sample-1.0-SNAPSHOT.jar server src/main/resources/my-app.yaml
